@@ -1,3 +1,4 @@
+import SignUpForm from "@/components/sign-up-form";
 import type { Route } from "./+types/main";
 
 export function meta({}: Route.MetaArgs) {
@@ -8,5 +9,9 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function SignUp() {
-  return <h1>SignUp</h1>;
+	return (
+		<main className="flex min-h-screen w-full items-center justify-center p-4">
+			<SignUpForm />
+		</main>
+	);
 }
