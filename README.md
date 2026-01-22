@@ -8,6 +8,12 @@ This project is a social network-style application where users can create, edit,
 
 The tech stack was chosen to reflect current industry standards: React 19 with React Router 7 for the framework, TanStack Query for server state, Zustand for client state, and TailwindCSS for styling.
 
+## Demo
+
+A live version of the application is available for testing at:
+
+**https://codeleap-challenge-rho.vercel.app**
+
 ## Tech Stack
 
 | Category | Technology |
