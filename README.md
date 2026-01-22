@@ -54,8 +54,8 @@ app/
 Clone the repository:
 
 ```bash
-git clone git@github.com:daavsnts/codeleap-final.git
-cd codeleap-final
+git clone https://github.com/daavsnts/codeleap-challenge.git
+cd codeleap-challenge
 ```
 
 Install dependencies:
