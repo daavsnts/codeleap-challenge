@@ -58,3 +58,37 @@ export function PostCard({ post, setPostToAction }: PostCardProps) {
 		</div>
 	);
 }
+
+export function PostCardSkeleton() {
+	return (
+		<div className="border border-border rounded-lg flex flex-col gap-4 animate-pulse">
+			{/* Header */}
+			<div className="p-4 bg-gray-300 flex justify-between items-center rounded-t-lg">
+				{/* Title */}
+				<div className="h-5 w-40 bg-gray-400 rounded" />
+
+				{/* Actions */}
+				<div className="flex gap-4">
+					<div className="h-8 w-8 bg-gray-400 rounded" />
+					<div className="h-8 w-8 bg-gray-400 rounded" />
+				</div>
+			</div>
+
+			{/* Content */}
+			<div className="px-4 pb-4 flex flex-col gap-4">
+				{/* Meta */}
+				<div className="flex justify-between">
+					<div className="h-4 w-24 bg-gray-300 rounded" />
+					<div className="h-4 w-20 bg-gray-300 rounded" />
+				</div>
+
+				{/* Text */}
+				<div className="flex flex-col gap-2">
+					<div className="h-4 w-full bg-gray-300 rounded" />
+					<div className="h-4 w-full bg-gray-300 rounded" />
+					<div className="h-4 w-3/4 bg-gray-300 rounded" />
+				</div>
+			</div>
+		</div>
+	);
+}

@@ -9,13 +9,13 @@ const buttonVariants = cva(
 		variants: {
 			variant: {
 				primary:
-					"bg-primary text-primary-foreground rounded-lg px-6 py-2 hover:bg-primary-hover ",
+					"bg-primary text-primary-foreground rounded-lg px-4 py-2 hover:bg-primary-hover ",
 				destructive:
-					"bg-destructive text-destructive-foreground rounded-lg px-6 py-2 hover:bg-destructive-hover",
+					"bg-destructive text-destructive-foreground rounded-lg px-4 py-2 hover:bg-destructive-hover",
 				success:
-					"bg-success text-success-foreground rounded-lg px-6 py-2 hover:bg-success-hover",
+					"bg-success text-success-foreground rounded-lg px-4 py-2 hover:bg-success-hover",
 				outline:
-					"bg-white text-black border border-border rounded-lg px-6 py-2 hover:bg-gray-100",
+					"bg-white text-black border border-border rounded-lg px-4 py-2 hover:bg-gray-100",
 				default: "",
 			},
 			size: {
@@ -51,8 +51,8 @@ function Button({
 			{...props}
 		>
 			<div className="flex items-center gap-2">
-				{loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
 				{children}
+        {loading && <Loader2 className="h-4 w-4 animate-spin" />}
 			</div>
 		</button>
 	);

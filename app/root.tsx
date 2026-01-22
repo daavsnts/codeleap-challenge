@@ -34,7 +34,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				<Providers>{children}</Providers>
-				<Toaster />
+				<Toaster
+					toastOptions={{
+						unstyled: true,
+						classNames: {
+							toast:
+								"min-w-90 font-body p-4 shadow-md rounded-lg border border-border flex gap-2 items-center",
+							success: "bg-green-50 text-success-hover",
+							error: "bg-red-50 text-destructive-hover",
+							info: "bg-blue-50 text-info-hover",
+						},
+					}}
+				/>
 				<ScrollRestoration />
 				<Scripts />
 			</body>

@@ -5,11 +5,12 @@ import {
 	PostCard,
 	PostDeleteDialog,
 	PostEditDialog,
+	PostCardSkeleton,
 } from "@/components/main";
 import { getPosts, POSTS_TAG } from "@/services/api/fetch";
 import { useQuery } from "@tanstack/react-query";
 import type { Post } from "@/services/api/models";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Button } from "@/components/ui";
 import { LogOut } from "lucide-react";
 import { useAuth } from "@/hooks";
@@ -26,7 +27,7 @@ export default function Home() {
 	const [postToAction, setPostToAction] = useState<Post | null>(null);
 	const { handleLogout } = useAuth();
 
-  const action = searchParams.get("action") as string;
+	const action = searchParams.get("action") as string;
 
 	const { data: posts, isLoading } = useQuery({
 		queryFn: () => getPosts(),
@@ -37,6 +38,8 @@ export default function Home() {
 		setPostToAction(null);
 		setSearchParams({}, { replace: true });
 	}
+
+	const baseSkeletonId = useId();
 
 	return (
 		<main className="flex min-h-screen w-full justify-center">
@@ -54,13 +57,17 @@ export default function Home() {
 						<PostForm />
 					</div>
 
-					{posts?.results.map((post) => (
-						<PostCard
-							key={post.id}
-							post={post}
-							setPostToAction={setPostToAction}
-						/>
-					))}
+					{isLoading
+						? [0, 1, 2].map((i) => (
+								<PostCardSkeleton key={`${baseSkeletonId}-${i}`} />
+							))
+						: posts?.results.map((post) => (
+								<PostCard
+									key={post.id}
+									post={post}
+									setPostToAction={setPostToAction}
+								/>
+							))}
 				</div>
 			</div>
 
