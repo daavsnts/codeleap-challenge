@@ -37,7 +37,6 @@ export function SignUpForm() {
 		},
 	});
 
-
 	function onSubmit(data: SignUpData) {
 		handleLogin(data.username);
 		toast.success(`Welcome, ${data.username}!`);

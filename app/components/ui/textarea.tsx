@@ -1,10 +1,7 @@
 import { cn } from "@/lib/utils";
 import type React from "react";
 
-function TextareaWrapper({
-	className,
-	...props
-}: React.ComponentProps<"div">) {
+function TextareaWrapper({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
 			data-slot="textarea-wrapper"
@@ -26,7 +23,7 @@ function TextareaField({ className, error, ...props }: TextareaFieldProps) {
 			className={cn(
 				"border border-gray-500 rounded-lg p-2",
 				error && "ring-2 ring-destructive",
-				className
+				className,
 			)}
 			{...props}
 		/>
@@ -42,17 +39,16 @@ function Textarea({ label, error, id, className, ...props }: TextareaProps) {
 	return (
 		<TextareaWrapper>
 			{label && (
-				<label
-					data-slot="textarea-label"
-					htmlFor={id}
-					className="font-medium"
-				>
+				<label data-slot="textarea-label" htmlFor={id} className="font-medium">
 					{label}
 				</label>
 			)}
 			<TextareaField id={id} error={!!error} className={className} {...props} />
 			{error && (
-				<span data-slot="textarea-error" className="text-xs text-destructive-hover mt-0.5">
+				<span
+					data-slot="textarea-error"
+					className="text-xs text-destructive-hover mt-0.5"
+				>
 					* {error}
 				</span>
 			)}

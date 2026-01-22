@@ -39,7 +39,7 @@ async function fetchApiWithMethod<T>(
 
 async function getFromApi<T>(
 	path: string,
-  defaultValues: T,
+	defaultValues: T,
 	options?: Omit<RequestInit, "body" | "method">,
 ): Promise<T> {
 	const req = await fetch(`${import.meta.env.VITE_API_URL}${path}`, {

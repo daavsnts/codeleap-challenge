@@ -2,10 +2,7 @@ import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 import type React from "react";
 
-function DialogOverlay({
-	className,
-	...props
-}: React.ComponentProps<"div">) {
+function DialogOverlay({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
 			data-slot="dialog-overlay"
@@ -18,10 +15,7 @@ function DialogOverlay({
 	);
 }
 
-function DialogContent({
-	className,
-	...props
-}: React.ComponentProps<"div">) {
+function DialogContent({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
 			data-slot="dialog-content"
@@ -35,10 +29,7 @@ function DialogContent({
 	);
 }
 
-function DialogHeader({
-	className,
-	...props
-}: React.ComponentProps<"div">) {
+function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
 			data-slot="dialog-header"
@@ -48,10 +39,7 @@ function DialogHeader({
 	);
 }
 
-function DialogTitle({
-	className,
-	...props
-}: React.ComponentProps<"div">) {
+function DialogTitle({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
 			data-slot="dialog-title"
@@ -61,10 +49,7 @@ function DialogTitle({
 	);
 }
 
-function DialogClose({
-	className,
-	...props
-}: React.ComponentProps<"button">) {
+function DialogClose({ className, ...props }: React.ComponentProps<"button">) {
 	return (
 		<button
 			data-slot="dialog-close"
@@ -78,16 +63,9 @@ function DialogClose({
 	);
 }
 
-function DialogBody({
-	className,
-	...props
-}: React.ComponentProps<"div">) {
+function DialogBody({ className, ...props }: React.ComponentProps<"div">) {
 	return (
-		<div
-			data-slot="dialog-body"
-			className={cn("", className)}
-			{...props}
-		/>
+		<div data-slot="dialog-body" className={cn("", className)} {...props} />
 	);
 }
 
