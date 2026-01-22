@@ -81,6 +81,10 @@ Open http://localhost:5173 in your browser.
 | `bun start` | Serve production build |
 | `bun run typecheck` | Run TypeScript type checking |
 
+## Acknowledgments
+
+Thank you to **CodeLeap** for the opportunity to participate in this technical challenge. It was a great experience to build this project and demonstrate my skills with modern React development.
+
 ## Author
 
 **Davi Santos**
