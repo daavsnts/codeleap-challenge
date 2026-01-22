@@ -28,12 +28,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
 		<html lang="en">
 			<head>
 				<meta charSet="utf-8" />
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1, viewport-fit=cover"
+				/>
 				<Meta />
 				<Links />
 			</head>
 			<body>
-				<Providers>{children}</Providers>
+				<Providers>
+					<div className="min-h-[100dvh] flex flex-col safe-area md:pt-0 md:pb-0">
+						{children}
+					</div>
+				</Providers>
 				<Toaster
 					toastOptions={{
 						unstyled: true,

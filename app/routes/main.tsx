@@ -44,14 +44,14 @@ export default function Home() {
 	return (
 		<main className="flex min-h-screen w-full justify-center">
 			<div className="w-full flex flex-col bg-white max-w-full md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1280px]">
-				<div className="flex justify-between gap-4 p-4 bg-primary text-white">
+				<div className="flex justify-between gap-4 p-4 bg-primary text-white fixed w-full md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1280px]">
 					<h1 className="text-xl font-bold">CodeLeap Network</h1>
 					<Button onClick={handleLogout}>
 						<LogOut />
 					</Button>
 				</div>
 
-				<div className="flex flex-col gap-4 p-4">
+				<div className="flex flex-col gap-4 p-4 mt-15">
 					<div className="border border-border rounded-lg p-4 flex flex-col gap-4">
 						<h1 className="text-lg font-semibold">What's on your mind?</h1>
 						<PostForm />
