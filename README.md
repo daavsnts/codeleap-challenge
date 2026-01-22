@@ -12,7 +12,7 @@ The tech stack was chosen to reflect current industry standards: React 19 with R
 
 A live version of the application is available for testing at:
 
-**https://codeleap-challenge-rho.vercel.app**
+**https://codeleap-challenge-daav.vercel.app/**
 
 ## Tech Stack
 
