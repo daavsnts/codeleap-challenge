@@ -1,24 +1,24 @@
 import { Pencil, Trash2 } from "lucide-react";
 import type { Post } from "@/services/api/models";
 import { timeAgo } from "@/utils";
-import { useUserStore } from "@/stores";
 import { useSearchParams } from "react-router";
 import { Button } from "../ui";
+import { useAuth } from "@/hooks";
 
 type PostCardProps = {
 	post: Post;
-  setPostToAction: (post: Post) => void;
+	setPostToAction: (post: Post) => void;
 };
 
 export function PostCard({ post, setPostToAction }: PostCardProps) {
-  const [_, setSearchParams] = useSearchParams();
-	const { currentUsername } = useUserStore();
+	const [_, setSearchParams] = useSearchParams();
+	const { username: loggedUsername } = useAuth();
 	const { title, content, username, created_datetime } = post;
-	const itsCurrentUserPost = currentUsername === username;
+	const itsCurrentUserPost = loggedUsername === username;
 
 	function handleAction(action: "EDIT" | "DELETE") {
-    setPostToAction(post);
-    setSearchParams({ action });
+		setPostToAction(post);
+		setSearchParams({ action });
 	}
 
 	return (

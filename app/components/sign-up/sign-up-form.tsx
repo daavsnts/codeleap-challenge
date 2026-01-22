@@ -1,10 +1,10 @@
-import { useUserStore } from "@/stores/user";
 import { toast } from "sonner";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { Button, Input } from "../ui";
+import { useAuth } from "@/hooks";
 
 const signUpSchema = z
 	.object({
@@ -22,6 +22,7 @@ const signUpSchema = z
 type SignUpData = z.infer<typeof signUpSchema>;
 
 export function SignUpForm() {
+	const { handleLogin } = useAuth();
 	const navigate = useNavigate();
 
 	const {
@@ -36,10 +37,9 @@ export function SignUpForm() {
 		},
 	});
 
-	const { setCurrentUsername } = useUserStore();
 
 	function onSubmit(data: SignUpData) {
-		setCurrentUsername(data.username);
+		handleLogin(data.username);
 		toast.success(`Welcome, ${data.username}!`);
 		navigate("/main");
 	}

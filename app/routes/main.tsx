@@ -10,6 +10,9 @@ import { getPosts, POSTS_TAG } from "@/services/api/fetch";
 import { useQuery } from "@tanstack/react-query";
 import type { Post } from "@/services/api/models";
 import { useState } from "react";
+import { Button } from "@/components/ui";
+import { LogOut } from "lucide-react";
+import { useAuth } from "@/hooks";
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -20,8 +23,10 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
 	const [searchParams, setSearchParams] = useSearchParams();
-	const action = searchParams.get("action") as string;
 	const [postToAction, setPostToAction] = useState<Post | null>(null);
+	const { handleLogout } = useAuth();
+
+  const action = searchParams.get("action") as string;
 
 	const { data: posts, isLoading } = useQuery({
 		queryFn: () => getPosts(),
@@ -36,8 +41,11 @@ export default function Home() {
 	return (
 		<main className="flex min-h-screen w-full justify-center">
 			<div className="w-full flex flex-col bg-white max-w-full md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1280px]">
-				<div className="p-4 bg-primary text-white">
+				<div className="flex justify-between gap-4 p-4 bg-primary text-white">
 					<h1 className="text-xl font-bold">CodeLeap Network</h1>
+					<Button onClick={handleLogout}>
+						<LogOut />
+					</Button>
 				</div>
 
 				<div className="flex flex-col gap-4 p-4">

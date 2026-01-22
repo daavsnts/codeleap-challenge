@@ -1,8 +1,8 @@
 import { Button, Input, Textarea } from "@/components/ui";
+import { useAuth } from "@/hooks";
 import { POSTS_TAG } from "@/services/api/fetch";
 import type { Post } from "@/services/api/models";
 import { fetchApiWithMethod, revalidateClientTags } from "@/services/utils";
-import { useUserStore } from "@/stores";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -24,7 +24,7 @@ type PostFormProps = {
 
 export function PostForm({ postToAction, clearPostToAction }: PostFormProps) {
 	const [isPending, startTransition] = useTransition();
-	const { currentUsername } = useUserStore();
+	const { username } = useAuth();
 
 	const {
 		register,
@@ -54,7 +54,7 @@ export function PostForm({ postToAction, clearPostToAction }: PostFormProps) {
 	async function onSubmit(data: PostInputsData) {
 		startTransition(async () => {
 			const formattedData = {
-				...(!isEditingPost && { username: currentUsername }),
+				...(!isEditingPost && { username }),
 				...data,
 			};
 
