@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input, Textarea } from "@/components/ui";
+import { Button, Input, Textarea } from "../ui";
 import { POSTS_TAG } from "@/services/api/fetch";
 import { fetchApiWithMethod, revalidateClientTags } from "@/services/utils";
 import { zodResolver } from "@hookform/resolvers/zod";

@@ -3,6 +3,7 @@ import type { Route } from "./+types/main";
 import { PostForm } from "@/components";
 import { getPosts, POSTS_TAG } from "@/services/api/fetch";
 import { useQuery } from "@tanstack/react-query";
+import { PostCard } from "@/components/post-card";
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -32,6 +33,10 @@ export default function Home() {
 						<h1 className="text-lg font-semibold">What's on your mind?</h1>
 						<PostForm postId={postId} />
 					</div>
+
+					{posts?.results.map((post) => (
+						<PostCard key={post.id} post={post} />
+					))}
 				</div>
 			</div>
 		</main>
