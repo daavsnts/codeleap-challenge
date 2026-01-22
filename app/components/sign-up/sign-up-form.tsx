@@ -1,12 +1,10 @@
-"use client";
-
 import { useUserStore } from "@/stores/user";
 import { toast } from "sonner";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { Button, Input } from "./ui";
+import { Button, Input } from "../ui";
 
 const signUpSchema = z
 	.object({
@@ -23,7 +21,7 @@ const signUpSchema = z
 
 type SignUpData = z.infer<typeof signUpSchema>;
 
-export default function SignUpForm() {
+export function SignUpForm() {
 	const navigate = useNavigate();
 
 	const {

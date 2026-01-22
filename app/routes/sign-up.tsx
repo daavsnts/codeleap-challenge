@@ -1,4 +1,4 @@
-import SignUpForm from "@/components/sign-up-form";
+import { SignUpForm } from "@/components/sign-up";
 import type { Route } from "./+types/main";
 
 export function meta({}: Route.MetaArgs) {
