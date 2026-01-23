@@ -17,6 +17,13 @@ export function useAuth() {
 	}
 
 	const isAuthenticated = Boolean(user);
+  // Workaround because of our auth simulation storing null user
+	const authenticatedUser = user as User;
 
-	return { user, isAuthenticated, handleLogin, handleLogout };
+	return {
+		user: authenticatedUser,
+		isAuthenticated,
+		handleLogin,
+		handleLogout,
+	};
 }

@@ -1,4 +1,4 @@
-import { Button, Input, Textarea } from "../../ui";
+import { Button, Input, Textarea } from "@/components/ui";
 import { useAuth, useCreatePost } from "@/hooks";
 import { postSchema, type PostInputsData } from "@/services/api/posts";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 export function PostFormContent() {
-	const { username } = useAuth();
+	const { user } = useAuth();
 	const { mutate, isPending } = useCreatePost();
 
 	const {
@@ -32,9 +32,9 @@ export function PostFormContent() {
 
 	const someFieldIsEmpty = isFieldEmpty("title") || isFieldEmpty("content");
 
-	async function onSubmit(data: PostInputsData) {
+	async function onSubmit({ title, content }: PostInputsData) {
 		mutate(
-			{ username, title: data.title, content: data.content },
+			{ username: user.username, title, content },
 			{
 				onSuccess: () => {
 					toast.success("Post created successfully!");

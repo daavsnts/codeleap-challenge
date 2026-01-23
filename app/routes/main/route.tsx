@@ -6,7 +6,7 @@ import {
 	PostDeleteDialog,
 	PostEditDialog,
 	PostCardSkeleton,
-} from "@/components/main";
+} from "./components";
 import { getPosts, POSTS_TAG } from "@/services/api/posts";
 import { useQuery } from "@tanstack/react-query";
 import type { Post } from "@/services/api/posts";
