@@ -30,7 +30,7 @@ A live version of the application is available for testing at:
 
 ## Features
 
-- User authentication with persistent sessions
+- User authentication with persistent sessions and auth guard
 - Create new posts with title and content
 - Edit your own posts
 - Delete your own posts
@@ -49,7 +49,7 @@ app/
 │   └── ui/         # Reusable UI primitives
 ├── hooks/          # Custom React hooks
 ├── stores/         # Zustand state stores
-├── services/       # API layer (fetch, models, mappers)
+├── services/       # API layer (queries, mutations, models, mappers and schemas)
 ├── routes/         # React Router route components
 ├── utils/          # Utility functions
 └── lib/            # Shared libraries
