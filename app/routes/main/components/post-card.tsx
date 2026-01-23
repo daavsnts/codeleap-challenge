@@ -2,7 +2,7 @@ import { Pencil, Trash2 } from "lucide-react";
 import type { Post } from "@/services/api/posts";
 import { timeAgo } from "@/utils";
 import { useSearchParams } from "react-router";
-import { Button } from "../ui";
+import { Button } from "@/components/ui";
 import { useAuth } from "@/hooks";
 
 type PostCardProps = {
@@ -12,9 +12,10 @@ type PostCardProps = {
 
 export function PostCard({ post, setPostToAction }: PostCardProps) {
 	const [_, setSearchParams] = useSearchParams();
-	const { username: loggedUsername } = useAuth();
-	const { title, content, username, created_datetime } = post;
-	const itsCurrentUserPost = loggedUsername === username;
+	const { user } = useAuth();
+
+	const { title, content, username: postUsername, created_datetime } = post;
+	const itsCurrentUserPost = user.username === postUsername;
 
 	function handleAction(action: "EDIT" | "DELETE") {
 		setPostToAction(post);
@@ -26,7 +27,7 @@ export function PostCard({ post, setPostToAction }: PostCardProps) {
 			<div className="p-4 bg-primary text-white flex justify-between items-center rounded-t-lg gap-4">
 				<h1 className="text-lg font-bold truncate">{title}</h1>
 
-				{itsCurrentUserPost && (
+				{itsCurrentUserPost ? (
 					<div className="flex gap-4">
 						<Button
 							variant="default"
@@ -44,12 +45,12 @@ export function PostCard({ post, setPostToAction }: PostCardProps) {
 							<Pencil />
 						</Button>
 					</div>
-				)}
+				) : null}
 			</div>
 
 			<div className="px-4 pb-4 flex flex-col gap-4">
 				<div className="flex justify-between text-sm text-gray-500">
-					<span className="font-bold">@{username}</span>
+					<span className="font-bold">@{postUsername}</span>
 					<span>{timeAgo(created_datetime)}</span>
 				</div>
 
