@@ -1,4 +1,4 @@
-import { Button, Input, Textarea } from "@/components/ui";
+import { Button, Input, Textarea } from "../../../ui";
 import { useAuth, useCreatePost, useUpdatePost } from "@/hooks";
 import type { Post } from "@/services/api/posts";
 import { postSchema, type PostInputsData } from "@/services/api/posts";

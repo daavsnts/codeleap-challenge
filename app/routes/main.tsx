@@ -6,7 +6,7 @@ import {
 	PostDeleteDialog,
 	PostEditDialog,
 	PostCardSkeleton,
-} from "@/components/routes/main";
+} from "@/components/main";
 import { getPosts, POSTS_TAG } from "@/services/api/posts";
 import { useQuery } from "@tanstack/react-query";
 import type { Post } from "@/services/api/posts";
@@ -22,7 +22,7 @@ export function meta({}: Route.MetaArgs) {
 	];
 }
 
-export default function Home() {
+export default function Dashboard() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [postToAction, setPostToAction] = useState<Post | null>(null);
 	const { handleLogout } = useAuth();
