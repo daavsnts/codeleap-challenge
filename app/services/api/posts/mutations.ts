@@ -7,18 +7,18 @@ export type CreatePostData = {
 	content: string;
 };
 
-export type UpdatePostData = {
-	id: number;
-	title: string;
-	content: string;
-};
-
 export async function createPost(data: CreatePostData): Promise<Post> {
 	return sendToApi<Post>("/careers/", {
 		body: data,
 		method: "POST",
 	});
 }
+
+export type UpdatePostData = {
+	id: number;
+	title: string;
+	content: string;
+};
 
 export async function updatePost(data: UpdatePostData): Promise<Post> {
 	const { id, ...body } = data;

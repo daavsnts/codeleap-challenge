@@ -1,21 +1,22 @@
+import type { User } from "@/services/api/auth/models";
 import { useAuthStore } from "@/stores/auth";
 import { useNavigate } from "react-router";
 
 export function useAuth() {
-	const { username, setUsername } = useAuthStore();
+	const { user, setUser } = useAuthStore();
 	const navigate = useNavigate();
 
-	function handleLogin(username: string) {
-		setUsername(username);
+	function handleLogin(user: User) {
+		setUser(user);
 		navigate("/main");
 	}
 
 	function handleLogout() {
-		setUsername("");
+		setUser(null);
 		navigate("/");
 	}
 
-	const isAuthenticated = Boolean(username);
+	const isAuthenticated = Boolean(user);
 
-	return { username, isAuthenticated, handleLogin, handleLogout };
+	return { user, isAuthenticated, handleLogin, handleLogout };
 }

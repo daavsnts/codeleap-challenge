@@ -40,6 +40,8 @@ export default function Home() {
 	}
 
 	const baseSkeletonId = useId();
+	const isEditAction = action === "EDIT";
+	const isDeleteAction = action === "DELETE";
 
 	return (
 		<main className="flex min-h-screen w-full justify-center">
@@ -71,18 +73,18 @@ export default function Home() {
 				</div>
 			</div>
 
-			{action === "EDIT" && (
+			{isEditAction ? (
 				<PostEditDialog
 					postToAction={postToAction}
 					clearPostToAction={clearPostToAction}
 				/>
-			)}
-			{action === "DELETE" && (
+			) : null}
+			{isDeleteAction ? (
 				<PostDeleteDialog
 					postToAction={postToAction}
 					clearPostToAction={clearPostToAction}
 				/>
-			)}
+			) : null}
 		</main>
 	);
 }

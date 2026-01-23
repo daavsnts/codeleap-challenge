@@ -1,16 +1,17 @@
+import type { User } from "@/services/api/auth/models";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 type AuthStore = {
-	username: string;
-	setUsername: (name: string) => void;
+	user: User | null;
+	setUser: (user: User | null) => void;
 };
 
 export const useAuthStore = create<AuthStore>()(
 	persist(
 		(set) => ({
-			username: "",
-			setUsername: (username) => set({ username }),
+			user: null,
+			setUser: (user) => set({ user}),
 		}),
 		{
 			name: "auth-store",
