@@ -1,9 +1,7 @@
 import { Button, Dialog } from "@/components/ui";
-import { fetchApiWithMethod, revalidateClientTags } from "@/services/utils";
-import { useTransition } from "react";
+import { useDeletePost } from "@/hooks";
+import type { Post } from "@/services/api/posts";
 import { toast } from "sonner";
-import { POSTS_TAG } from "@/services/api/fetch";
-import type { Post } from "@/services/api/models";
 
 type PostDeleteDialogProps = {
 	postToAction: Post | null;
@@ -14,23 +12,19 @@ export function PostDeleteDialog({
 	postToAction,
 	clearPostToAction,
 }: PostDeleteDialogProps) {
-	const [isPending, startTransition] = useTransition();
+	const { mutate, isPending } = useDeletePost();
 
-	async function onSubmitDeletion() {
-		startTransition(async () => {
-			await fetchApiWithMethod(`/careers/${postToAction?.id}/`, {
-				method: "DELETE",
-			})
-				.then(async () => {
-					await revalidateClientTags([POSTS_TAG]);
-					toast.success("Post deleted successfully!");
-					clearPostToAction();
-				})
-				.catch((err) => {
-					toast.error(
-						err?.message || "Error while deleting post. Try again later.",
-					);
-				});
+	function onSubmitDeletion() {
+		if (!postToAction?.id) return;
+
+		mutate(postToAction.id, {
+			onSuccess: () => {
+				toast.success("Post deleted successfully!");
+				clearPostToAction();
+			},
+			onError: (error: { message?: string }) => {
+				toast.error(error?.message || "Error while deleting post. Try again later.");
+			},
 		});
 	}
 

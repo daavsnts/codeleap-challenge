@@ -1,22 +1,13 @@
 import { Button, Input, Textarea } from "../../ui";
-import { POSTS_TAG } from "@/services/api/fetch";
-import { fetchApiWithMethod, revalidateClientTags } from "@/services/utils";
+import { useAuth, useCreatePost } from "@/hooks";
+import { postSchema, type PostInputsData } from "@/services/api/posts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
-
-const postSchema = z.object({
-	id: z.number().optional(),
-	title: z.string().min(3, "Title must be at least 3 characters"),
-	content: z.string().min(10, "Content must be at least 10 characters"),
-});
-
-type PostInputsData = z.infer<typeof postSchema>;
 
 export function PostFormContent() {
-	const [isSubmitting, setIsSubmitting] = useState(false);
+	const { username } = useAuth();
+	const { mutate, isPending } = useCreatePost();
 
 	const {
 		register,
@@ -42,24 +33,18 @@ export function PostFormContent() {
 	const someFieldIsEmpty = isFieldEmpty("title") || isFieldEmpty("content");
 
 	async function onSubmit(data: PostInputsData) {
-		setIsSubmitting(true);
-
-		await fetchApiWithMethod("/careers/", {
-			body: data,
-			method: "POST",
-		})
-			.then(async () => {
-				await revalidateClientTags([POSTS_TAG]);
-				toast.success(`Post created successfully!`);
-				reset();
-			})
-			.catch((err) => {
-				toast.error(
-					err?.message || `Error while creating post. Try again later.`,
-				);
-			});
-
-		setIsSubmitting(false);
+		mutate(
+			{ username, title: data.title, content: data.content },
+			{
+				onSuccess: () => {
+					toast.success("Post created successfully!");
+					reset();
+				},
+				onError: (error: { message?: string }) => {
+					toast.error(error?.message || "Error while creating post. Try again later.");
+				},
+			},
+		);
 	}
 
 	return (
@@ -84,7 +69,7 @@ export function PostFormContent() {
 					type="submit"
 					variant="primary"
 					disabled={someFieldIsEmpty}
-					loading={isSubmitting}
+					loading={isPending}
 				>
 					Create
 				</Button>

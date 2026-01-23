@@ -1,5 +1,5 @@
 import { Dialog } from "@/components/ui";
-import type { Post } from "@/services/api/models";
+import type { Post } from "@/services/api/posts";
 import { PostForm } from "../post-form";
 
 type PostEditDialogProps = {

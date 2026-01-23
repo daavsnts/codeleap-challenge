@@ -1,21 +1,11 @@
 import { Button, Input, Textarea } from "@/components/ui";
-import { useAuth } from "@/hooks";
-import { POSTS_TAG } from "@/services/api/fetch";
-import type { Post } from "@/services/api/models";
-import { fetchApiWithMethod, revalidateClientTags } from "@/services/utils";
+import { useAuth, useCreatePost, useUpdatePost } from "@/hooks";
+import type { Post } from "@/services/api/posts";
+import { postSchema, type PostInputsData } from "@/services/api/posts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useTransition } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
-
-const postSchema = z.object({
-	id: z.number().optional(),
-	title: z.string().min(3, "Title must be at least 3 characters"),
-	content: z.string().min(10, "Content must be at least 10 characters"),
-});
-
-type PostInputsData = z.infer<typeof postSchema>;
 
 type PostFormProps = {
 	postToAction?: Post | null;
@@ -23,8 +13,9 @@ type PostFormProps = {
 };
 
 export function PostForm({ postToAction, clearPostToAction }: PostFormProps) {
-	const [isPending, startTransition] = useTransition();
 	const { username } = useAuth();
+	const { mutate: createPost, isPending: isCreating } = useCreatePost();
+	const { mutate: updatePost, isPending: isUpdating } = useUpdatePost();
 
 	const {
 		register,
@@ -43,6 +34,7 @@ export function PostForm({ postToAction, clearPostToAction }: PostFormProps) {
 
 	const form = watch();
 	const isEditingPost = !!postToAction;
+	const isPending = isCreating || isUpdating;
 
 	function isFieldEmpty(name: Exclude<keyof PostInputsData, "id">) {
 		const value = form[name];
@@ -52,34 +44,34 @@ export function PostForm({ postToAction, clearPostToAction }: PostFormProps) {
 	const someFieldIsEmpty = isFieldEmpty("title") || isFieldEmpty("content");
 
 	async function onSubmit(data: PostInputsData) {
-		startTransition(async () => {
-			const formattedData = {
-				...(!isEditingPost && { username }),
-				...data,
-			};
-
-			await fetchApiWithMethod(
-				isEditingPost ? `/careers/${formattedData.id}/` : "/careers/",
+		if (isEditingPost && data.id) {
+			updatePost(
+				{ id: data.id, title: data.title, content: data.content },
 				{
-					body: formattedData,
-					method: isEditingPost ? "PATCH" : "POST",
+					onSuccess: () => {
+						toast.success("Post edited successfully!");
+						reset();
+						clearPostToAction?.();
+					},
+					onError: (error: { message?: string }) => {
+						toast.error(error?.message || "Error while editing post. Try again later.");
+					},
 				},
-			)
-				.then(async () => {
-					await revalidateClientTags([POSTS_TAG]);
-					toast.success(
-						`Post ${isEditingPost ? "edited" : "created"} successfully!`,
-					);
-					reset();
-					if (isEditingPost) clearPostToAction?.();
-				})
-				.catch((err) => {
-					toast.error(
-						err?.message ||
-							`Error while ${isEditingPost ? "editing" : "creating"} post. Try again later.`,
-					);
-				});
-		});
+			);
+		} else {
+			createPost(
+				{ username, title: data.title, content: data.content },
+				{
+					onSuccess: () => {
+						toast.success("Post created successfully!");
+						reset();
+					},
+					onError: (error: { message?: string }) => {
+						toast.error(error?.message || "Error while creating post. Try again later.");
+					},
+				},
+			);
+		}
 	}
 
 	useEffect(() => {

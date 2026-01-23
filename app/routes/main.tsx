@@ -7,9 +7,9 @@ import {
 	PostEditDialog,
 	PostCardSkeleton,
 } from "@/components/main";
-import { getPosts, POSTS_TAG } from "@/services/api/fetch";
+import { getPosts, POSTS_TAG } from "@/services/api/posts";
 import { useQuery } from "@tanstack/react-query";
-import type { Post } from "@/services/api/models";
+import type { Post } from "@/services/api/posts";
 import { useId, useState } from "react";
 import { Button } from "@/components/ui";
 import { LogOut } from "lucide-react";

@@ -1,5 +1,5 @@
 import { Pencil, Trash2 } from "lucide-react";
-import type { Post } from "@/services/api/models";
+import type { Post } from "@/services/api/posts";
 import { timeAgo } from "@/utils";
 import { useSearchParams } from "react-router";
 import { Button } from "../ui";
