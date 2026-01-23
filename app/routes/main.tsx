@@ -1,12 +1,12 @@
 import { useSearchParams } from "react-router";
-import type { Route } from "../+types/main";
+import type { Route } from "./+types/main";
 import {
 	PostForm,
 	PostCard,
 	PostDeleteDialog,
 	PostEditDialog,
 	PostCardSkeleton,
-} from "./components";
+} from "@/components/routes/main";
 import { getPosts, POSTS_TAG } from "@/services/api/posts";
 import { useQuery } from "@tanstack/react-query";
 import type { Post } from "@/services/api/posts";

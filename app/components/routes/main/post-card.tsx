@@ -2,7 +2,7 @@ import { Pencil, Trash2 } from "lucide-react";
 import type { Post } from "@/services/api/posts";
 import { timeAgo } from "@/utils";
 import { useSearchParams } from "react-router";
-import { Button } from "@/components/ui";
+import { Button } from "../../ui";
 import { useAuth } from "@/hooks";
 
 type PostCardProps = {

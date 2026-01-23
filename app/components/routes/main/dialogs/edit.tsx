@@ -1,4 +1,4 @@
-import { Dialog } from "@/components/ui";
+import { Dialog } from "../../../ui";
 import type { Post } from "@/services/api/posts";
 import { PostForm } from "../post-form";
 

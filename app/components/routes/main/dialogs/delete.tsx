@@ -1,4 +1,4 @@
-import { Button, Dialog } from "@/components/ui";
+import { Button, Dialog } from "../../../ui";
 import { useDeletePost } from "@/hooks";
 import type { Post } from "@/services/api/posts";
 import { toast } from "sonner";

@@ -2,7 +2,7 @@ import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { Button, Input } from "@/components/ui";
+import { Button, Input } from "../../ui";
 import { useAuth } from "@/hooks";
 import { signUpSchema, type SignUpData } from "@/services/api/auth";
 
