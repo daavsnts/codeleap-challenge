@@ -13,7 +13,7 @@ type PostFormProps = {
 };
 
 export function PostForm({ postToAction, clearPostToAction }: PostFormProps) {
-	const { username } = useAuth();
+	const { user } = useAuth();
 	const { mutate: createPost, isPending: isCreating } = useCreatePost();
 	const { mutate: updatePost, isPending: isUpdating } = useUpdatePost();
 
@@ -43,10 +43,10 @@ export function PostForm({ postToAction, clearPostToAction }: PostFormProps) {
 
 	const someFieldIsEmpty = isFieldEmpty("title") || isFieldEmpty("content");
 
-	async function onSubmit(data: PostInputsData) {
-		if (isEditingPost && data.id) {
+	async function onSubmit({ id, title, content }: PostInputsData) {
+		if (isEditingPost && id) {
 			updatePost(
-				{ id: data.id, title: data.title, content: data.content },
+				{ id, title, content },
 				{
 					onSuccess: () => {
 						toast.success("Post edited successfully!");
@@ -54,24 +54,29 @@ export function PostForm({ postToAction, clearPostToAction }: PostFormProps) {
 						clearPostToAction?.();
 					},
 					onError: (error: { message?: string }) => {
-						toast.error(error?.message || "Error while editing post. Try again later.");
+						toast.error(
+							error?.message || "Error while editing post. Try again later.",
+						);
 					},
 				},
 			);
-		} else {
-			createPost(
-				{ username, title: data.title, content: data.content },
-				{
-					onSuccess: () => {
-						toast.success("Post created successfully!");
-						reset();
-					},
-					onError: (error: { message?: string }) => {
-						toast.error(error?.message || "Error while creating post. Try again later.");
-					},
-				},
-			);
+			return;
 		}
+
+		createPost(
+			{ username: user.username, title, content },
+			{
+				onSuccess: () => {
+					toast.success("Post created successfully!");
+					reset();
+				},
+				onError: (error: { message?: string }) => {
+					toast.error(
+						error?.message || "Error while creating post. Try again later.",
+					);
+				},
+			},
+		);
 	}
 
 	useEffect(() => {
