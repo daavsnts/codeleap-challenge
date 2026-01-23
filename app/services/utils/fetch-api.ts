@@ -10,7 +10,7 @@ function buildBody(body?: Record<string, unknown> | FormData) {
 	return JSON.stringify(body ?? {});
 }
 
-async function fetchApiWithMethod<T>(
+async function sendToApi<T>(
 	path: string,
 	options: Omit<RequestInit, "body"> & {
 		body?: Record<string, unknown> | FormData;
@@ -65,4 +65,4 @@ async function getFromApi<T>(
 	return defaultValues;
 }
 
-export { fetchApiWithMethod, getFromApi };
+export { sendToApi, getFromApi };
